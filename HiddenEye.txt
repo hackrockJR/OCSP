@@ -1,0 +1,19 @@
+git clone https://github.com/DarkSecDevelopers/HiddenEye.git
+
+chmod 777 HiddenEye
+
+sudo apt install python3-pip
+
+cd HiddenEye
+
+sudo pip3 install -r requeriments.txt
+
+chmod +x HiddenEye.py
+
+For Linux -
+apt-get -y update;apt -y install nodejs npm;npm cache clean -f;npm i -g n;n stable;npm i -g localtunnel
+
+python3 HiddenEye.py
+
+https://www.youtube.com/watch?v=Ab9tb4IVE0Q
+
