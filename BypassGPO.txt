@@ -1,0 +1,35 @@
+La técnica consiste en aprovecharse de la forma en que se carga el registro, en particular el hive HKCU, al iniciar sesión en el equipo.
+Cuando el usuario inicia sesión se cargan ajustes desde la rama HKEY_CURRENT_USER. Este hive contiene ajustes relacionados con el usuario 
+y aplicaciones que se relacionarán con él. Este hive es un archivo que se puede encontrar en la siguiente ruta: %USERPROFILE%\ntuser.dat. 
+Cuando se inicia sesión, el servicio de perfiles de usuario utiliza NtLoadKeyEx para cargar el hive en el registro.
+
+0. Eliminar politica GPO 
+
+ prohibición de la ejecución de un CMD
+ 
+ El primer ejemplo, se puede habilitar de la siguiente forma, a través del MMC y las GPO
+ En la ruta System (sin entrar en Ctrl+Alt+Del Options) se puede encontrar la directiva para bloquear la ejecución de un CMD. 
+ El resultado es que el "Administrador de Tareas" no está accesible para el usuario y que el CMD queda bloqueado
+
+1. Crear el hive ntuser.man 
+
+Lo primero es cambiar los permisos sobre la raíz, para que haya un control total, por parte del usuario “todos”, sobre todas las subclaves 
+que hay debajo de la raíz. Hay que recordar que, aunque lo he llamado “poc”, esa clave y su jerarquía corresponde con el HKEY_CURRENT_USER
+que queremos “emular” para conseguir el bypass de las políticas de grupo GPO.
+
+Ahora, hay que llegar a \Software\Microsoft\Windows\CurrentVersion\Policies. En función de la política que se quiera sobrescribir o añadir,
+se necesitará encontrar la subclave correspondiente. En el caso del administrador de tareas y del CMD 
+la clave es \Software\Microsoft\Windows\CurrentVersion\Policies\System. 
+
+2. Añadir o eliminar las políticas clave/valor que se quieran del hive 
+
+
+
+3. Mover el archivo a la ruta %USERPROFILE% 
+
+4. Salir de la sesión y volver a iniciarla
+
+Por último, se mueve el fichero ntuser.man a la ruta %USERPROFILE% y se puede cerrar e iniciar sesión de nuevo
+
+
+https://www.elladodelmal.com/2020/02/hacking-trick-bypass-de-politicas-de.html?m=1&fbclid=IwAR1OULYNlXuoE--8MJMNdw2JFmu70DTHDuamhaNlGE8a1c8EKa3u29WraSE
