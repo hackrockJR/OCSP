@@ -1,0 +1,50 @@
+Curso de mastermind 
+
+Requisitos
+
+Parrot OS 
+virtualbox
+
+
+Como configurar entorno de escritorio en linux / canal de youtube de s4vitar
+
+
+cat /etc/passwd contiene:
+
+Usuarios | identificador | Shell | Carpeta  
+
+shell : sh | bash | rbash | zsh | tmux | screen
+
+
+cat /etc/passwd | grep "sh$"  '''Filtrar las shell que acabe en sh de los usuarios'''
+
+cat /etc/passwd | grep "sh$" | awk '{print $1}' FS= ":"  ''' Filtrar el primer argumento teniendo en cuenta el delimitador los : '''
+
+cat /etc/passwd | grep "sh$" | cut -d ':' -f 1 ''' Filtrar el primer argumento teniendo en cuenta el delimitador los : '''
+
+
+>>> Nuevo usuario a nivel de sistema <<<
+
+id ''' Ver el usuario '''
+sudos su  ''' Ser root '''
+whoami  ''' Que usuario soy'''
+
+cd home 
+mkdir pepito ''' directorio personal de pepito
+useradd -d /home/pepito -s /bin/bash pepito ''' indicarle la carpeta y el bin bash '''
+cat /etc/passwd | grep "sh$" 
+ls -l 
+passwd pepito 
+chown pepito pepito ''' asignarle el directorio pepito al usuario pepito'''
+chgroup pepito pepito ''' asignarle el grupo pepito al usuario pepito'''
+
+chown pepito:pepito pepito ''' *Igual al anterior pero resumido, asignarle el directorio y grupo  pepito al usuario pepito'''
+
+su pepito ''' migrar al usuario pepito'''
+
+>>>> Lectura de permisos <<<<
+
+ls -l / ''' Enlistar de la raiz '''
+
+d > directory 
+
